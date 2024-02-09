@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import ProductsList from './components/ProductList';
 import AddProductForm from "./components/AddProductForm";
 import './App.css';
+import client,{endpoints} from './utils/client';
 
-const API_URL = 'https://dummyjson.com/products';
+
 
 function App() {
   const [products, setProducts] = useState([]);
@@ -15,7 +15,7 @@ function App() {
  //yesle chain data fetch garo axios use garera ani 5 ota matra list ko product dekhayo
   const fetchData = async () => {
     try {
-      const response = await axios.get(API_URL);
+      const response = await client.get(endpoints.products.list);
       const initialProducts = response.data.products.slice(0, 5);
       setProducts(initialProducts);
     } catch (error) {
